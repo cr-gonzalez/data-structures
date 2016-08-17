@@ -53,7 +53,7 @@ class LinkedList(object):
             self.count -= 1
             return pop.data
         else:
-            raise IndexError
+            raise IndexError('The list is empty, there is nothing to pop.')
 
     def remove(self, node):
         """Remove node from linked list."""
