@@ -195,6 +195,7 @@ def test_remove_1():
 
 
 def test_remove_from_2_item():
+    """Test remove from LL of 2 nodes."""
     from linked_list import LinkedList
     test_ll = LinkedList()
     test_ll.push(1)
@@ -203,7 +204,8 @@ def test_remove_from_2_item():
     assert test_ll.head.next is None
 
 
-def test_remove_head_from_long():
+def test_remove_from_long():
+    """Remove from middle of list."""
     from linked_list import LinkedList
     test_ll = LinkedList()
     for i in range(10):
@@ -214,6 +216,7 @@ def test_remove_head_from_long():
 
 
 def test_remove_head_on_1():
+    """Remove head on a linked list."""
     from linked_list import LinkedList
     test_ll = LinkedList()
     test_ll.push(1)
@@ -222,12 +225,14 @@ def test_remove_head_on_1():
 
 
 def test_remove_head_empty():
+    """Remove from an empyt list."""
     from linked_list import LinkedList
     test_ll = LinkedList()
     test_ll.remove(1) is None
 
 
 def test_display():
+    """Display linked list with nodes."""
     from linked_list import LinkedList
     test_ll = LinkedList()
     for i in range(4):
@@ -236,6 +241,23 @@ def test_display():
 
 
 def test_display_empty():
+    """Display empty linked list."""
     from linked_list import LinkedList
     test_ll = LinkedList()
     assert test_ll.display() == u"()"
+
+
+def test_len():
+    """Test len of linked list."""
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    for i in range(7):
+        test_ll.push(i)
+    assert len(test_ll) == 7
+
+
+def test_ll_with_list():
+    """Test initializing with a list of items."""
+    from linked_list import LinkedList
+    test_ll = LinkedList([1, 3, 8, 'string', 'stuff'])
+    assert test_ll.size() == 5

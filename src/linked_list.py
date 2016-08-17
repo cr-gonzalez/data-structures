@@ -11,10 +11,13 @@ class Node(object):
 class LinkedList(object):
     """Initialize linklist object."""
 
-    def __init__(self):
+    def __init__(self, iterable=None):
         """Initialize with head and count."""
         self.head = None
         self.count = 0
+        if iterable is not None:
+            for item in iterable:
+                self.push(item)
 
     def push(self, data):
         """Push value to linked list."""
@@ -30,6 +33,10 @@ class LinkedList(object):
     def size(self):
         """Return size of linked list."""
         return self.count
+
+    def __len__(self):
+        """Allow use of the len buliltin."""
+        return self.size()
 
     def search(self, data):
         """Search for data and return node."""
