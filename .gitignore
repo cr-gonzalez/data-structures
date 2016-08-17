@@ -92,3 +92,7 @@ ENV/
 # Personal Ignores
 bin/
 pyvenv.cfg
+Include/
+Lib/
+Scripts/
+tcl/
