@@ -47,3 +47,36 @@ class LinkedList(object):
             return pop.data
         else:
             raise IndexError
+
+    def remove(self, node):
+        """Remove node from linked list."""
+        try:
+            if node is self.head:
+                self.head = self.head.next
+                self.count -= 1
+            else:
+                previous = self.head
+                current_node = self.head.next
+                next_node = self.head.next.next
+                while current_node is not node:
+                    previous = current_node
+                    current_node = next_node
+                    next_node = next_node.next
+                else:
+                    previous.next = next_node
+                    self.count -= 1
+        except AttributeError:
+            return None
+
+    def display(self):
+        """Display nodes in a tuple-like unicode literal."""
+        current_node = self.head
+        display_nodes = u""
+        while current_node is not None:
+            if current_node.next is not None:
+                display_nodes += str(current_node.data) + u", "
+                current_node = current_node.next
+            else:
+                display_nodes += str(current_node.data)
+                break
+        return u"(" + display_nodes + ")"

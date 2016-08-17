@@ -183,3 +183,59 @@ def test_pop_empty_ll():
     test_ll = LinkedList()
     with pytest.raises(IndexError):
         test_ll.pop()
+
+
+def test_remove_1():
+    """Test removes node."""
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    test_ll.push(1)
+    test_ll.remove(test_ll.head)
+    assert test_ll.size() == 0
+
+
+def test_remove_from_2_item():
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    test_ll.push(1)
+    test_ll.push(2)
+    test_ll.remove(test_ll.head.next)
+    assert test_ll.head.next is None
+
+
+def test_remove_head_from_long():
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    for i in range(10):
+        test_ll.push(i)
+    x = test_ll.search(5)
+    test_ll.remove(x)
+    assert test_ll.search(5) is None
+
+
+def test_remove_head_on_1():
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    test_ll.push(1)
+    test_ll.remove(test_ll.head)
+    assert test_ll.head is None
+
+
+def test_remove_head_empty():
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    test_ll.remove(1) is None
+
+
+def test_display():
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    for i in range(4):
+        test_ll.push(i)
+    assert test_ll.display() == "(3, 2, 1, 0)"
+
+
+def test_display_empty():
+    from linked_list import LinkedList
+    test_ll = LinkedList()
+    assert test_ll.display() == u"()"
