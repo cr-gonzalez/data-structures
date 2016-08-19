@@ -95,3 +95,10 @@ def test_remove_bad_value(dll_8):
     """Test remove with bad value."""
     with pytest.raises(ValueError):
         dll_8.remove('a')
+
+
+def test_remove_on_empty():
+    """Test remove with empty DLL."""
+    test_dll = DLL()
+    with pytest.raises(AttributeError):
+        test_dll.remove(8)
