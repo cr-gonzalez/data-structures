@@ -48,21 +48,27 @@ class DoublyLinkedList(object):
             raise IndexError("Doubly Linked List is empty.")
         else:
             popped_node = self.head
-            self.head = self.head.next
-            self.head.prev = None
+            if self.head.next is None:
+                self.head = None
+            else:
+                self.head = self.head.next
+                self.head.prev = None
             self._size -= 1
             return popped_node.data
 
     def shift(self):
         """Return value at the end and rmv node."""
-        if self.tail is not None:
+        if self.tail is None:
+            raise IndexError('Doubly Linked List is empty.')
+        else:
             shifted_node = self.tail
-            self.tail = self.tail.prev
-            self.tail.next = None
+            if self.tail.prev is None:
+                self.tail = None
+            else:
+                self.tail = self.tail.prev
+                self.tail.next = None
             self._size -= 1
             return shifted_node.data
-        else:
-            raise IndexError('Doubly Linked List is empty.')
 
     def remove(self, data):
         """Remove val from DLL."""
