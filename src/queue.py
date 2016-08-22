@@ -22,7 +22,7 @@ class Queue(object):
     def peek(self):
         """Return just data of the tail without dequeueing."""
         if self.dll.tail is None:
-            raise IndexError("Can not peek from an empty Queue.")
+            return None
         else:
             return self.dll.tail.data
 

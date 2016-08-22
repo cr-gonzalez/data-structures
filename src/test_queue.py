@@ -37,8 +37,7 @@ def test_peek_on_empty():
     """Test peek on empty queue."""
     from queue import Queue
     test_q = Queue()
-    with pytest.raises(IndexError):
-        test_q.peek()
+    assert test_q.peek() is None
 
 
 def test_size_on_queue_6(queue_6):
@@ -57,3 +56,24 @@ def test_peek_size_not_change(queue_6):
     """Test peek does not change size."""
     queue_6.peek()
     assert queue_6.size() == 6
+
+
+def test_dequeue_with_one(queue_one):
+    """Test dequeue on one works."""
+    queue_one.dequeue()
+    assert queue_one.dll.tail is None
+
+
+def test_dequeue_then_enque(queue_one):
+    """Test dequeue and then enque."""
+    queue_one.dequeue()
+    queue_one.enqueue('abc')
+    assert queue_one.dll.tail.data == 'abc'
+
+
+def test_dequeue_enqueue():
+    """Test enque and then deque."""
+    from queue import Queue
+    test_q = Queue()
+    test_q.enqueue('abc')
+    assert test_q.dequeue() == 'abc'

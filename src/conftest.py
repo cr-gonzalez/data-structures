@@ -27,3 +27,11 @@ def dll_1():
     test_dll = DLL()
     test_dll.push(1)
     return test_dll
+
+
+@pytest.fixture()
+def queue_one():
+    """Create a queue of one."""
+    test_q = Queue()
+    test_q.enqueue(1)
+    return test_q

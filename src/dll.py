@@ -50,6 +50,7 @@ class DoublyLinkedList(object):
             popped_node = self.head
             if self.head.next is None:
                 self.head = None
+                self.tail = None
             else:
                 self.head = self.head.next
                 self.head.prev = None
@@ -64,6 +65,7 @@ class DoublyLinkedList(object):
             shifted_node = self.tail
             if self.tail.prev is None:
                 self.tail = None
+                self.head = None
             else:
                 self.tail = self.tail.prev
                 self.tail.next = None
