@@ -11,6 +11,7 @@ def dll_8():
         test_dll.push(i)
     return test_dll
 
+
 @pytest.fixture()
 def queue_6():
     """Create a queue with entries."""
@@ -18,3 +19,11 @@ def queue_6():
     for i in range(6):
         test_q.enqueue(i)
     return test_q
+
+
+@pytest.fixture()
+def dll_1():
+    """Create DLL with 1."""
+    test_dll = DLL()
+    test_dll.push(1)
+    return test_dll

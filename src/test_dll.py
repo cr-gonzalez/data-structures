@@ -102,3 +102,15 @@ def test_remove_on_empty():
     test_dll = DLL()
     with pytest.raises(AttributeError):
         test_dll.remove(8)
+
+
+def test_shift_on_one(dll_1):
+    """Test shift on 1 item."""
+    dll_1.shift()
+    assert dll_1.tail is None
+
+
+def test_pop_one_one(dll_1):
+    """Test shift on 1 item."""
+    dll_1.pop()
+    assert dll_1.head is None
