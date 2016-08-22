@@ -24,12 +24,11 @@ class DoublyLinkedList(object):
         """Push data into doubly linked list."""
         node = Node(data)
         if self.head is None:
-            self.head = node
             self.tail = node
         else:
             self.head.prev = node
             node.next = self.head
-            self.head = node
+        self.head = node
         self._size += 1
 
     def append(self, data):
@@ -37,32 +36,31 @@ class DoublyLinkedList(object):
         node = Node(data)
         if self.tail is None:
             self.head = node
-            self.tail = node
         else:
             self.tail.next = node
             node.prev = self.tail
-            self.tail = node
+        self.tail = node
         self._size += 1
 
     def pop(self):
         """Return value the value of the head."""
         if self.head is not None:
-            pop = self.head
+            popped = self.head
             self.head = self.head.next
             self.head.prev = None
             self._size -= 1
-            return pop.data
+            return popped.data
         else:
             raise IndexError("Doubly Linked List is empty.")
 
     def shift(self):
         """Return value at the end and rmv node."""
         if self.tail is not None:
-            shift = self.tail
+            shifted_node = self.tail
             self.tail = self.tail.prev
             self.tail.next = None
             self._size -= 1
-            return shift.data
+            return shifted_node.data
         else:
             raise IndexError('Doubly Linked List is empty.')
 
