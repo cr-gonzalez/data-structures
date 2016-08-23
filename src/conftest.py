@@ -1,6 +1,7 @@
 import pytest
 from dll import DoublyLinkedList as DLL
 from queue import Queue
+from deque import Deque
 
 
 @pytest.fixture()
@@ -35,3 +36,29 @@ def queue_one():
     test_q = Queue()
     test_q.enqueue(1)
     return test_q
+
+# Fixtures for Deque
+
+
+@pytest.fixture()
+def deque_empty():
+    """Empty Deque fixture."""
+    test_dq = Deque()
+    return test_dq
+
+
+@pytest.fixture()
+def deque_one():
+    """Create dq of one item."""
+    test_dq = Deque()
+    test_dq.append(1)
+    return test_dq
+
+
+@pytest.fixture()
+def deque_six():
+    """Create deque of six items."""
+    test_dq = Deque()
+    for i in range(6):
+        test_dq.append(i)
+    return test_dq
