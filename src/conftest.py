@@ -62,3 +62,26 @@ def deque_six():
     for i in range(6):
         test_dq.append(i)
     return test_dq
+
+
+TEST_CASES = [
+    (),
+    (0, ),
+    (18, 23, 92, 1833),
+    (17, 238, -1, 209, 5.5),
+    (172, 232, 262, 234, 420),
+]
+
+# sequence and reverse sq. 
+
+
+@pytest.fixture(params=TEST_CASES)
+def binheap(request):
+    """A binheap fixture with TESTCASE"""
+    from bin_heap import BinHeap
+    instance = BinHeap(request.param)
+    try:
+        biggest = max(request.param)
+    except ValueError:
+        biggest = None
+    return instance, biggest
