@@ -16,5 +16,6 @@ class BinHeap(object):
         while self._heap[i] > self._heap[parent]:
             self._heap[i], self._heap[parent] = self._heap[parent], self._heap[i]
             i = parent
-            parent = (i -1) // 2
-            
+            parent = (i - 1) // 2
+            if parent < 0:
+                break

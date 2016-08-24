@@ -31,4 +31,11 @@ def test_push_bunches():
     from bin_heap import BinHeap
     test_bh = BinHeap([20, 15, 12, 10, 8])
     test_bh.push(22)
-    assert test_bh._heap[5] == 22
+    assert test_bh._heap[0] == 22
+
+
+def test_push_three():
+    from bin_heap import BinHeap
+    test_bh = BinHeap([16, 10])
+    test_bh.push(12)
+    assert test_bh._heap[1] == 10
