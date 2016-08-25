@@ -33,7 +33,7 @@ class BinHeap(object):
         try:
             popped = self._heap[0]
         except IndexError:
-            return None
+            raise IndexError
         if len(self._heap) == 1:
             self._heap = []
         else:

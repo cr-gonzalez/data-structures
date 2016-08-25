@@ -65,7 +65,6 @@ def deque_six():
 
 
 TEST_CASES = [
-    (),
     (0, ),
     (18, 23, 92, 1833),
     (17, 238, -1, 209, 5.5),
@@ -83,5 +82,5 @@ def binheap(request):
     try:
         biggest = max(request.param)
     except ValueError:
-        biggest = None
+        raise IndexError
     return instance, biggest
