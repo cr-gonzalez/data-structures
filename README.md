@@ -17,3 +17,6 @@ enqueue, dequeue, peek, size
 
 5. Deque
 append, appendleft, pop, popleft, peek, peekleft, size
+
+6. Binary Heap
+push, heapify, pop, heapify_down

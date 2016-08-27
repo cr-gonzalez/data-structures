@@ -30,10 +30,7 @@ class BinHeap(object):
 
     def pop(self):
         """Pop root of the heap."""
-        try:
-            popped = self._heap[0]
-        except IndexError:
-            raise IndexError
+        popped = self._heap[0]
         if len(self._heap) == 1:
             self._heap = []
         else:
