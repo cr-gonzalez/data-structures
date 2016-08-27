@@ -7,7 +7,7 @@ class BinHeap(object):
         if iterable is not None:
             for item in iterable:
                 self._heap.append(item)
-            self._heapify()
+                self._heapify()
 
     def _heapify(self):
         """Heapify the list."""
@@ -39,5 +39,48 @@ class BinHeap(object):
         else:
             self._heap[0], self._heap[-1] = self._heap[-1], self._heap[0]
             self._heap.pop()
-            self._heapify()
+            self._heapify_down()
         return popped
+
+    def _heapify_down(self):
+        """Sort from top to bottom."""
+        i = 0
+        l_child = (2 * i) + 1
+        r_child = (2 * i) + 2
+        while True:
+            try:
+                if self._heap[l_child] > self._heap[r_child]:
+                    self._heap[i], self._heap[l_child] = self._heap[l_child], self._heap[i]
+                    i = l_child
+                elif self._heap[r_child] > self._heap[l_child]:
+                    self._heap[i], self._heap[r_child] = self._heap[r_child],  self._heap[i]
+                    i = r_child
+                l_child = (2 * i) + 1
+                r_child = (2 * i) + 2
+            except IndexError:
+                try:
+                    if self._heap[l_child]:
+                        if self._heap[l_child] > self._heap[i]:
+                            self._heap[i], self._heap[l_child] = self._heap[l_child], self._heap[i]
+                        break
+                except IndexError:
+                    break
+
+
+
+
+        # while True:
+        #     try:
+        #         if self._heap[i] < self._heap[l_child]:
+        #             self._heap[i], self._heap[l_child] = self._heap[l_child], self._heap[i]
+        #             i = l_child
+        #     except IndexError:
+        #         break
+        #     try:
+        #         elif self._heap[i] < self._heap[r_child]:
+        #             self._heap[i], self._heap[r_child] = self._heap[r_child], self._heap[i]
+        #             i = r_child
+        #     except IndexError:
+        #         break
+        #     l_child = 2 * i + 1
+        #     r_child = 2 * i + 2
