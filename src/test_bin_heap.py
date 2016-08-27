@@ -88,3 +88,18 @@ def test_pop(binheap):
     """Test pop with bin heap."""
     instance, result = binheap
     assert instance.pop() == result
+
+
+def test_pop_ordering():
+    """Test specifically for pop ordering."""
+    from bin_heap import BinHeap
+    test_bh = BinHeap([20, 15, 12, 8])
+    test_bh.pop()
+    assert test_bh._heap == [15, 8, 12]
+
+def test_pop_unordered_list():
+    """Test unordered list heapify, pop and heapify down."""
+    from bin_heap import BinHeap
+    test_bh = BinHeap([6, 3, 8, 1, -4, 11, 5])
+    test_bh.pop()
+    assert test_bh._heap == [8, 3, 6, 1, -4, 5]
