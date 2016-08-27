@@ -65,22 +65,3 @@ class BinHeap(object):
                         break
                 except IndexError:
                     break
-
-
-
-
-        # while True:
-        #     try:
-        #         if self._heap[i] < self._heap[l_child]:
-        #             self._heap[i], self._heap[l_child] = self._heap[l_child], self._heap[i]
-        #             i = l_child
-        #     except IndexError:
-        #         break
-        #     try:
-        #         elif self._heap[i] < self._heap[r_child]:
-        #             self._heap[i], self._heap[r_child] = self._heap[r_child], self._heap[i]
-        #             i = r_child
-        #     except IndexError:
-        #         break
-        #     l_child = 2 * i + 1
-        #     r_child = 2 * i + 2
