@@ -133,7 +133,7 @@ def test_peek_two():
 
 
 def test_peek_pop():
-    """Test to make sure peek isnt removing anything."""
+    """Test to make sure peek isn't removing anything."""
     from priority_q import PQueue
     test_pq = PQueue()
     test_pq.insert(1, 'a')
