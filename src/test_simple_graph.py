@@ -96,7 +96,7 @@ def test_del_edge_good(graph_empty):
     """Test that del_edge works."""
     graph_empty.add_edge('a', 'z')
     graph_empty.del_edge('a', 'z')
-    assert graph_empty._graph == {'a': []}
+    assert graph_empty._graph == {'a': [], 'z': []}
 
 
 def test_del_edge_multi_edge(graph_two):
@@ -191,22 +191,24 @@ def test_adjacent_after_del(graph_three):
 
 def test_nodes_empty(graph_empty):
     """Return an empty list."""
-    assert graph_empty.nodes == []
+    assert graph_empty.nodes() == []
 
 
 def test_nodes_one(graph_one):
     """Return list of 1 item."""
-    assert graph_one.nodes == ['a']
+    assert graph_one.nodes() == ['a']
 
 
 def test_nodes_graph_two(graph_two):
     """Return a list of 2 nodes."""
-    assert graph_two.nodes == ['a', 'b']
+    lst = sorted(graph_two.nodes())
+    assert lst == ['a', 'b']
 
 
 def test_nodes_graph_three(graph_three):
     """Return a list of 3 nodes."""
-    assert graph_three.nodes == ['a', 'b', 'c']
+    lst = sorted(graph_three.nodes())
+    assert lst == ['a', 'b', 'c']
 
 
 def test_nodes_with_edges(graph_empty):
@@ -215,4 +217,36 @@ def test_nodes_with_edges(graph_empty):
     graph_empty.add_edge('c', 'd')
     graph_empty.add_edge('a', 'd')
     graph_empty.add_edge('z', 'y')
-    assert graph_empty._graph == ['a', 'b', 'c', 'd', 'z', 'y']
+    lst = sorted(graph_empty.nodes())
+    assert lst == ['a', 'b', 'c', 'd', 'y', 'z']
+
+
+def test_edges_empty(graph_empty):
+    """Return an empty list."""
+    assert graph_empty.edges() == []
+
+
+def test_edges_one(graph_one):
+    """Return an empty list with node in g."""
+    assert graph_one.edges() == []
+
+
+def test_edges_with_edges(graph_three):
+    """Return a list with edges."""
+    graph_three.add_edge('a', 'b')
+    graph_three.add_edge('b', 'c')
+    graph_three.add_edge('d', 'e')
+    sort = sorted(graph_three.edges())
+    assert sort == [('a', 'b'), ('b', 'c'), ('d', 'e')]
+
+
+def test_edges_with_edges_many(graph_three):
+    """Return a list with edges."""
+    graph_three.add_edge('a', 'b')
+    graph_three.add_edge('b', 'c')
+    graph_three.add_edge('d', 'e')
+    graph_three.add_edge('a', 'c')
+    graph_three.add_edge('c', 'd')
+    sort = sorted(graph_three.edges())
+    result = [('a', 'b'), ('a', 'c'), ('b', 'c'), ('c', 'd'), ('d', 'e')]
+    assert sort == result

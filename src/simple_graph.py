@@ -17,7 +17,7 @@ class SimpleGraph(object):
         """Add an edge to a node."""
         if node1 not in self._graph:
             self.add_node(node1)
-        elif node2 not in self._graph:
+        if node2 not in self._graph:
             self.add_node(node2)
         if node2 not in self._graph[node1]:
             self._graph[node1].append(node2)
@@ -62,4 +62,13 @@ class SimpleGraph(object):
 
     def nodes(self):
         """Return a list of nodes."""
-        return 'yes'
+        return list(self._graph.keys())
+
+    def edges(self):
+        """Return a list of tuples for edges."""
+        result = []
+        for key in self._graph:
+            if self._graph[key]:
+                for node in self._graph[key]:
+                    result.append((key, node))
+        return result

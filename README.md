@@ -20,3 +20,10 @@ append, appendleft, pop, popleft, peek, peekleft, size
 
 6. Binary Heap
 push, heapify, pop, heapify_down
+
+7. Priority Queue
+insert, pop, peek
+
+8. Simple Graph
+nodes, edges, add_node, add_edge, del_node,del_edge
+has_node, neighors, adjacent
