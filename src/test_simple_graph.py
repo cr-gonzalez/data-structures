@@ -78,3 +78,141 @@ def test_del_node_in_multi_val(graph_three):
         val = graph_three._graph[key]
         result.extend(val)
     assert result == []
+
+
+def test_del_edge_empty_edge(graph_one):
+    """Test raises error on no edge."""
+    with pytest.raises(ValueError):
+        graph_one.del_edge('a', 'z')
+
+
+def test_del_edge_empty(graph_empty):
+    """Test raises error on no edge."""
+    with pytest.raises(KeyError):
+        graph_empty.del_edge('a', 'z')
+
+
+def test_del_edge_good(graph_empty):
+    """Test that del_edge works."""
+    graph_empty.add_edge('a', 'z')
+    graph_empty.del_edge('a', 'z')
+    assert graph_empty._graph == {'a': []}
+
+
+def test_del_edge_multi_edge(graph_two):
+    """Test del edge only deletes that edge."""
+    graph_two.add_edge('a', 'z')
+    graph_two.add_edge('b', 'z')
+    graph_two.del_edge('b', 'z')
+    assert graph_two._graph['a'] == ['z']
+
+
+def test_has_node_empty(graph_empty):
+    """Test has node return false."""
+    assert graph_empty.has_node('a') is False
+
+
+def test_has_node_two(graph_two):
+    """Test has node on graph2."""
+    assert graph_two.has_node('z') is False
+
+
+def test_has_node_two_true(graph_two):
+    """Test has node returns true."""
+    assert graph_two.has_node('a')
+
+
+def test_has_node_after_add(graph_three):
+    """Test has node returns true after add."""
+    graph_three.add_node('x')
+    assert graph_three.has_node('x')
+
+
+def test_has_node_add_del(graph_two):
+    """Test has node false after add/del."""
+    graph_two.add_node('z')
+    graph_two.del_node('z')
+    assert graph_two.has_node('z') is False
+
+
+def test_neighbors_error(graph_empty):
+    """Test error raises on empty graph."""
+    with pytest.raises(KeyError):
+        graph_empty.neighbors('a')
+
+
+def test_neighors_small(graph_one):
+    """Test all neighbors of a."""
+    graph_one.add_edge('a', 'b')
+    graph_one.add_edge('a', 'c')
+    assert graph_one.neighbors('a') == ['b', 'c']
+
+
+def test_neigh_bigger(graph_three):
+    """Test all neighbors of b."""
+    graph_three.add_edge('b', 'a')
+    graph_three.add_edge('b', 'c')
+    graph_three.add_edge('b', 'g')
+    graph_three.add_edge('g', 'f')
+    graph_three.add_edge('a', 'e')
+    assert graph_three.neighbors('b') == ['a', 'c', 'g']
+
+
+def test_adjacent(graph_empty):
+    """Test if empty raises error."""
+    with pytest.raises(KeyError):
+        graph_empty.adjacent('a', 'c')
+
+
+def test_adjacent_with1(graph_one):
+    """Test second value raises error."""
+    with pytest.raises(KeyError):
+        graph_one.adjacent('a', 'c')
+
+
+def test_adjacent_true(graph_one):
+    """Test adjacent return true."""
+    graph_one.add_edge('a', 'd')
+    assert graph_one.adjacent('a', 'd')
+
+
+def test_adjacent_false(graph_three):
+    """Test Adjacent returns false."""
+    assert graph_three.adjacent('a', 'b') is False
+
+
+def test_adjacent_after_del(graph_three):
+    """Test adjacent returns false after del."""
+    graph_three.add_edge('a', 'b')
+    graph_three.add_edge('a', 'c')
+    graph_three.del_edge('a', 'c')
+    assert graph_three.adjacent('a', 'c') is False
+
+
+def test_nodes_empty(graph_empty):
+    """Return an empty list."""
+    assert graph_empty.nodes == []
+
+
+def test_nodes_one(graph_one):
+    """Return list of 1 item."""
+    assert graph_one.nodes == ['a']
+
+
+def test_nodes_graph_two(graph_two):
+    """Return a list of 2 nodes."""
+    assert graph_two.nodes == ['a', 'b']
+
+
+def test_nodes_graph_three(graph_three):
+    """Return a list of 3 nodes."""
+    assert graph_three.nodes == ['a', 'b', 'c']
+
+
+def test_nodes_with_edges(graph_empty):
+    """Return a list of nodes without edges added."""
+    graph_empty.add_edge('a', 'b')
+    graph_empty.add_edge('c', 'd')
+    graph_empty.add_edge('a', 'd')
+    graph_empty.add_edge('z', 'y')
+    assert graph_empty._graph == ['a', 'b', 'c', 'd', 'z', 'y']
