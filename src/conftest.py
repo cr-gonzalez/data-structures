@@ -2,6 +2,7 @@ import pytest
 from dll import DoublyLinkedList as DLL
 from queue import Queue
 from deque import Deque
+from simple_graph import SimpleGraph
 
 
 @pytest.fixture()
@@ -71,12 +72,12 @@ TEST_CASES = [
     (172, 232, 262, 234, 420),
 ]
 
-# sequence and reverse sq. 
+# sequence and reverse sq.
 
 
 @pytest.fixture(params=TEST_CASES)
 def binheap(request):
-    """A binheap fixture with TESTCASE"""
+    """A binheap fixture with TESTCASE."""
     from bin_heap import BinHeap
     instance = BinHeap(request.param)
     try:
@@ -84,3 +85,37 @@ def binheap(request):
     except ValueError:
         raise IndexError
     return instance, biggest
+
+
+@pytest.fixture()
+def graph_empty():
+    """An empty graph."""
+    test_sg = SimpleGraph()
+    return test_sg
+
+
+@pytest.fixture()
+def graph_one():
+    """A graph with one item."""
+    test_sg = SimpleGraph()
+    test_sg.add_node('a')
+    return test_sg
+
+
+@pytest.fixture()
+def graph_two():
+    """A graph with two items."""
+    test_sg = SimpleGraph()
+    test_sg.add_node('a')
+    test_sg.add_node('b')
+    return test_sg
+
+
+@pytest.fixture()
+def graph_three():
+    """A graph with 3 items."""
+    test_sg = SimpleGraph()
+    test_sg.add_node('a')
+    test_sg.add_node('b')
+    test_sg.add_node('c')
+    return test_sg
