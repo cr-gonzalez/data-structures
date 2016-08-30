@@ -250,3 +250,11 @@ def test_edges_with_edges_many(graph_three):
     sort = sorted(graph_three.edges())
     result = [('a', 'b'), ('a', 'c'), ('b', 'c'), ('c', 'd'), ('d', 'e')]
     assert sort == result
+
+
+def test_dft_simple(traversal_simple):
+    """Return a list of Depth First Traversal."""
+    assert traversal_simple.depth_first_traversal('a') == ['a', 'c', 'b', 'd']
+
+def test_dft_longer(traversal_longer):
+    assert traversal_longer.depth_first_traversal('a') == ['a', 'c', 'f', 'b', 'd', 'e']

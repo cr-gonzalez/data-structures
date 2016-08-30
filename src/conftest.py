@@ -119,3 +119,25 @@ def graph_three():
     test_sg.add_node('b')
     test_sg.add_node('c')
     return test_sg
+
+
+@pytest.fixture()
+def traversal_simple():
+    """Graph that has edges."""
+    test_sg = SimpleGraph()
+    test_sg.add_edge('a', 'b')
+    test_sg.add_edge('a', 'c')
+    test_sg.add_edge('b', 'c')
+    test_sg.add_edge('b', 'd')
+    return test_sg
+
+
+@pytest.fixture()
+def traversal_longer():
+    test_sg = SimpleGraph()
+    test_sg.add_edge('a', 'b')
+    test_sg.add_edge('a', 'c')
+    test_sg.add_edge('b', 'd')
+    test_sg.add_edge('d', 'e')
+    test_sg.add_edge('c', 'f')
+    return test_sg

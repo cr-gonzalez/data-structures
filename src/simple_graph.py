@@ -72,3 +72,15 @@ class SimpleGraph(object):
                 for node in self._graph[key]:
                     result.append((key, node))
         return result
+
+    def depth_first_traversal(self, node):
+        """Return depth first traversal list."""
+        result = []
+        to_visit = [node]
+        while to_visit:
+            added = to_visit.pop()
+            if added not in result:
+                result.append(added)
+            if self._graph[added]:
+                to_visit.extend(self._graph[added])
+        return result
