@@ -256,5 +256,59 @@ def test_dft_simple(traversal_simple):
     """Return a list of Depth First Traversal."""
     assert traversal_simple.depth_first_traversal('a') == ['a', 'c', 'b', 'd']
 
+
 def test_dft_longer(traversal_longer):
+    """Tests depth first on a more complex graph."""
     assert traversal_longer.depth_first_traversal('a') == ['a', 'c', 'f', 'b', 'd', 'e']
+
+
+def test_depth_first(traversal_diamond):
+    """Test a different type of graph."""
+    assert traversal_diamond.depth_first_traversal('a') == ['a', 'c', 'd', 'b']
+
+
+def test_depth_cycle(traversal_cycle):
+    """Test cyclical graph doesnt break."""
+    assert traversal_cycle.depth_first_traversal('a') == ['a', 'b', 'd', 'c']
+
+
+def test_depth_multiple_neighbors(traversal_neighbors):
+    """Test with a having more than 2 neighbors."""
+    result = ['a', 'i', 'd', 'h', 'c', 'g', 'e', 'f', 'b']
+    assert traversal_neighbors.depth_first_traversal('a') == result
+
+
+def test_depth_no_neighbors(traversal_neighbors):
+    """Return a list with just J since J has no neighbors."""
+    assert traversal_neighbors.depth_first_traversal('j') == ['j']
+
+
+def test_bft_simple(traversal_simple):
+    """Return a list of Breadth first traversal."""
+    assert traversal_simple.breadth_first_traversal('a') == ['a', 'b', 'c', 'd']
+
+
+def test_bft_longer(traversal_longer):
+    """Test breadth first traversal on a more complex graph."""
+    assert traversal_longer.breadth_first_traversal('a') == ['a', 'b', 'c', 'd', 'f', 'e']
+
+
+def test_bft_diamond(traversal_diamond):
+    """Test a different type of graph."""
+    assert traversal_diamond.breadth_first_traversal('a') == ['a', 'b', 'c', 'd']
+
+
+def test_breadth_cycle(traversal_cycle):
+    """Test cyclical graph doesnt break."""
+    assert traversal_cycle.breadth_first_traversal('a') == ['a', 'b', 'd', 'c']
+
+
+def test_breadth_multiple_neighbors(traversal_neighbors):
+    """Test with node having more than 2 neighbors."""
+    result = ['a', 'b', 'c', 'd', 'i', 'e', 'g', 'h', 'f']
+    assert traversal_neighbors.breadth_first_traversal('a') == result
+
+
+def test_breadth_no_neighbors(traversal_neighbors):
+    """Return a list of just J since J has no neighbors."""
+    assert traversal_neighbors.breadth_first_traversal('j') == ['j']

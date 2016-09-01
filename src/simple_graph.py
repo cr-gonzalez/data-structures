@@ -1,3 +1,5 @@
+from collections import deque
+
 
 class SimpleGraph(object):
     """A Simple Graph."""
@@ -81,6 +83,45 @@ class SimpleGraph(object):
             added = to_visit.pop()
             if added not in result:
                 result.append(added)
-            if self._graph[added]:
-                to_visit.extend(self._graph[added])
+                if self._graph[added]:
+                    to_visit.extend(self._graph[added])
         return result
+
+    def breadth_first_traversal(self, node):
+        """Return breadth first traversal list."""
+        result = []
+        to_visit = deque([node])
+        while to_visit:
+            added = to_visit.popleft()
+            if added not in result:
+                result.append(added)
+                if self._graph[added]:
+                    to_visit.extend(self._graph[added])
+        return result
+
+
+if __name__ == '__main__':
+    from conftest import traversal_neighbors, traversal_longer, traversal_simple
+    print(u'This is breadth first traversal with a simple graph.')
+    print(u">>>traversal_simple.breadth_first_traversal('a')")
+    traversal_simple = traversal_simple()
+    print(traversal_simple.breadth_first_traversal('a'))
+    print(u'This is depth first traversal with a simple graph.')
+    print(u">>>traversal_simple.depth_first_traversal('a')")
+    print(traversal_simple.depth_first_traversal('a'))
+    print(u'This is breadth first traversal with a larger graph.')
+    print(u">>>traversal_longer.breadth_first_traversal('a')")
+    traversal_longer = traversal_longer()
+    print(traversal_longer.breadth_first_traversal('a'))
+    print(u'This is depth first traversal with a larger graph.')
+    print(u">>>traversal_longer.depth_first_traversal('a')")
+    print(traversal_longer.depth_first_traversal('a'))
+    print(u'This is breadth first traversal with a graph where nodes'
+          u' have multiple neighbors, and is cyclical.')
+    print(u">>>traversal_neighbors.breadth_first_traversal('a')")
+    traversal_neighbors = traversal_neighbors()
+    print(traversal_neighbors.breadth_first_traversal('a'))
+    print(u'This is depth first traversal with a graph where nodes'
+          u' have multiple neighbors, and is cyclical.')
+    print(u">>>traversal_longer.depth_first_traversal('a')")
+    print(traversal_neighbors.depth_first_traversal('a'))

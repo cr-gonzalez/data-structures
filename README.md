@@ -27,3 +27,6 @@ insert, pop, peek
 8. Simple Graph
 nodes, edges, add_node, add_edge, del_node,del_edge
 has_node, neighors, adjacent
+depth first traversal- performs a depth-first traversal on a graph from the starting node provided and returns the list of values it visited.
+breadth first traversal- performs a breadth-first traversal on a graph from the starting node provided and returns the list of values it visited.
+# used wills suggestion to import deque from collections.

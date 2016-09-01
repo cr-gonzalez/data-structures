@@ -134,10 +134,50 @@ def traversal_simple():
 
 @pytest.fixture()
 def traversal_longer():
+    """Larger graph."""
     test_sg = SimpleGraph()
     test_sg.add_edge('a', 'b')
     test_sg.add_edge('a', 'c')
     test_sg.add_edge('b', 'd')
     test_sg.add_edge('d', 'e')
     test_sg.add_edge('c', 'f')
+    return test_sg
+
+
+@pytest.fixture()
+def traversal_diamond():
+    """Diamond shaped graph."""
+    test_sg = SimpleGraph()
+    test_sg.add_edge('a', 'b')
+    test_sg.add_edge('a', 'c')
+    test_sg.add_edge('b', 'd')
+    test_sg.add_edge('c', 'd')
+    return test_sg
+
+
+@pytest.fixture()
+def traversal_neighbors():
+    test_sg = SimpleGraph()
+    test_sg.add_edge('a', 'b')
+    test_sg.add_edge('a', 'c')
+    test_sg.add_edge('a', 'd')
+    test_sg.add_edge('a', 'i')
+    test_sg.add_edge('b', 'e')
+    test_sg.add_edge('e', 'f')
+    test_sg.add_edge('e', 'g')
+    test_sg.add_edge('g', 'e')
+    test_sg.add_edge('c', 'g')
+    test_sg.add_edge('d', 'h')
+    test_sg.add_edge('h', 'a')
+    test_sg.add_node('j')
+    return test_sg
+
+
+@pytest.fixture()
+def traversal_cycle():
+    test_sg = SimpleGraph()
+    test_sg.add_edge('a', 'b')
+    test_sg.add_edge('b', 'd')
+    test_sg.add_edge('d', 'c')
+    test_sg.add_edge('c', 'a')
     return test_sg
