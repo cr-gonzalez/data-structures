@@ -1,4 +1,5 @@
 from collections import deque
+from operator import itemgetter
 
 
 class SimpleGraph(object):
@@ -15,14 +16,14 @@ class SimpleGraph(object):
         else:
             self._graph[node] = []
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight):
         """Add an edge to a node."""
         if node1 not in self._graph:
             self.add_node(node1)
         if node2 not in self._graph:
             self.add_node(node2)
-        if node2 not in self._graph[node1]:
-            self._graph[node1].append(node2)
+        if (node2, weight) not in self._graph[node1]:
+            self._graph[node1].append((node2, weight))
 
     def del_node(self, node):
         """Delete a node and references to it."""
@@ -31,16 +32,19 @@ class SimpleGraph(object):
         else:
             self._graph.pop(node)
             for key in self._graph:
-                if node in self._graph[key]:
-                    self._graph[key].remove(node)
+                for tup in self._graph[key]:
+                    if node == tup[0]:
+                        self._graph[key].remove(tup)
 
     def del_edge(self, node1, node2):
         """Delete edge from a node."""
         if node1 not in self._graph:
             raise KeyError
-        if node2 not in self._graph[node1]:
+        if node2 not in list(map(itemgetter(0), self._graph[node1])):
             raise ValueError
-        self._graph[node1].remove(node2)
+        for tup in self._graph[node1]:
+                    if node2 == tup[0]:
+                        self._graph[node1].remove(tup)
 
     def has_node(self, node):
         """Return True if node in graph. False otherwise."""
@@ -52,13 +56,13 @@ class SimpleGraph(object):
         """Return a list of neighors for node."""
         if node not in self._graph:
             raise KeyError
-        return self._graph[node]
+        return list(map(itemgetter(0), self._graph[node]))
 
     def adjacent(self, node1, node2):
         """Check if node1 and node2 have edge."""
         if node1 not in self._graph or node2 not in self._graph:
             raise KeyError
-        if node2 in self._graph[node1]:
+        if node2 in list(map(itemgetter(0), self._graph[node1])):
             return True
         return False
 
@@ -72,31 +76,31 @@ class SimpleGraph(object):
         for key in self._graph:
             if self._graph[key]:
                 for node in self._graph[key]:
-                    result.append((key, node))
+                    result.append((key, node[0], node[1]))
         return result
 
     def depth_first_traversal(self, node):
         """Return depth first traversal list."""
         result = []
-        to_visit = [node]
+        to_visit = [node[0]]
         while to_visit:
             added = to_visit.pop()
-            if added not in result:
-                result.append(added)
-                if self._graph[added]:
-                    to_visit.extend(self._graph[added])
+            if added[0] not in result:
+                result.append(added[0])
+                if self._graph[added[0]]:
+                    to_visit.extend(self._graph[added[0]])
         return result
 
     def breadth_first_traversal(self, node):
         """Return breadth first traversal list."""
         result = []
-        to_visit = deque([node])
+        to_visit = deque([node[0]])
         while to_visit:
             added = to_visit.popleft()
-            if added not in result:
-                result.append(added)
-                if self._graph[added]:
-                    to_visit.extend(self._graph[added])
+            if added[0] not in result:
+                result.append(added[0])
+                if self._graph[added[0]]:
+                    to_visit.extend(self._graph[added[0]])
         return result
 
 

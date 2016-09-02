@@ -15,28 +15,28 @@ def test_add_node_2(graph_one):
 
 def test_add_edge_to_one(graph_one):
     """Test to check adding an edge."""
-    graph_one.add_edge('a', 'b')
-    assert 'b' in graph_one._graph['a']
+    graph_one.add_edge('a', 'b', 3)
+    assert ('b', 3) in graph_one._graph['a']
 
 
 def test_add_edge_to_empty(graph_empty):
     """Test that it adds nodes and adds edge."""
-    graph_empty.add_edge('z', 'y')
-    assert 'y' in graph_empty._graph['z']
+    graph_empty.add_edge('z', 'y', 4)
+    assert ('y', 4) in graph_empty._graph['z']
 
 
 def test_add_2_edges(graph_one):
     """Add more than one edge."""
-    graph_one.add_edge('a', 'g')
-    graph_one.add_edge('a', 'r')
-    assert graph_one._graph['a'] == ['g', 'r']
+    graph_one.add_edge('a', 'g', 5)
+    graph_one.add_edge('a', 'r', 6)
+    assert graph_one._graph['a'] == [('g', 5), ('r', 6)]
 
 
 def test_add_same_edge(graph_two):
     """Add the same edge twice."""
-    graph_two.add_edge('a', 'z')
-    graph_two.add_edge('a', 'z')
-    assert graph_two._graph['a'] == ['z']
+    graph_two.add_edge('a', 'z', 4)
+    graph_two.add_edge('a', 'z', 4)
+    assert graph_two._graph['a'] == [('z', 4)]
 
 
 def test_del_node_empty(graph_empty):
@@ -53,25 +53,25 @@ def test_del_node_one(graph_one):
 
 def test_del_node_key(graph_two):
     """Test del node is not a key."""
-    graph_two.add_edge('a', 'z')
-    graph_two.add_edge('a', 'f')
+    graph_two.add_edge('a', 'z', 3)
+    graph_two.add_edge('a', 'f', 4)
     graph_two.del_node('f')
-    assert 'f' not in graph_two._graph
+    assert ('f', 4) not in graph_two._graph
 
 
 def test_del_node_in_a(graph_two):
     """Test del is not in a's val."""
-    graph_two.add_edge('a', 'z')
-    graph_two.add_edge('a', 'f')
+    graph_two.add_edge('a', 'z', 2)
+    graph_two.add_edge('a', 'f', 2)
     graph_two.del_node('f')
-    assert 'f' not in graph_two._graph['a']
+    assert ('f', 2) not in graph_two._graph['a']
 
 
 def test_del_node_in_multi_val(graph_three):
     """Test node is not in any value."""
-    graph_three.add_edge('a', 'z')
-    graph_three.add_edge('g', 'z')
-    graph_three.add_edge('u', 'z')
+    graph_three.add_edge('a', 'z', 2)
+    graph_three.add_edge('g', 'z', 5)
+    graph_three.add_edge('u', 'z', 5)
     graph_three.del_node('z')
     result = []
     for key in graph_three._graph:
@@ -94,17 +94,17 @@ def test_del_edge_empty(graph_empty):
 
 def test_del_edge_good(graph_empty):
     """Test that del_edge works."""
-    graph_empty.add_edge('a', 'z')
+    graph_empty.add_edge('a', 'z', 6)
     graph_empty.del_edge('a', 'z')
     assert graph_empty._graph == {'a': [], 'z': []}
 
 
 def test_del_edge_multi_edge(graph_two):
     """Test del edge only deletes that edge."""
-    graph_two.add_edge('a', 'z')
-    graph_two.add_edge('b', 'z')
+    graph_two.add_edge('a', 'z', 7)
+    graph_two.add_edge('b', 'z', 5)
     graph_two.del_edge('b', 'z')
-    assert graph_two._graph['a'] == ['z']
+    assert graph_two._graph['a'] == [('z', 7)]
 
 
 def test_has_node_empty(graph_empty):
@@ -143,18 +143,18 @@ def test_neighbors_error(graph_empty):
 
 def test_neighors_small(graph_one):
     """Test all neighbors of a."""
-    graph_one.add_edge('a', 'b')
-    graph_one.add_edge('a', 'c')
+    graph_one.add_edge('a', 'b', 4)
+    graph_one.add_edge('a', 'c', 2)
     assert graph_one.neighbors('a') == ['b', 'c']
 
 
 def test_neigh_bigger(graph_three):
     """Test all neighbors of b."""
-    graph_three.add_edge('b', 'a')
-    graph_three.add_edge('b', 'c')
-    graph_three.add_edge('b', 'g')
-    graph_three.add_edge('g', 'f')
-    graph_three.add_edge('a', 'e')
+    graph_three.add_edge('b', 'a', 5)
+    graph_three.add_edge('b', 'c', 2)
+    graph_three.add_edge('b', 'g', 7)
+    graph_three.add_edge('g', 'f', 8)
+    graph_three.add_edge('a', 'e', 2)
     assert graph_three.neighbors('b') == ['a', 'c', 'g']
 
 
@@ -172,7 +172,7 @@ def test_adjacent_with1(graph_one):
 
 def test_adjacent_true(graph_one):
     """Test adjacent return true."""
-    graph_one.add_edge('a', 'd')
+    graph_one.add_edge('a', 'd', 6)
     assert graph_one.adjacent('a', 'd')
 
 
@@ -183,8 +183,8 @@ def test_adjacent_false(graph_three):
 
 def test_adjacent_after_del(graph_three):
     """Test adjacent returns false after del."""
-    graph_three.add_edge('a', 'b')
-    graph_three.add_edge('a', 'c')
+    graph_three.add_edge('a', 'b', 5)
+    graph_three.add_edge('a', 'c', 2)
     graph_three.del_edge('a', 'c')
     assert graph_three.adjacent('a', 'c') is False
 
@@ -213,10 +213,10 @@ def test_nodes_graph_three(graph_three):
 
 def test_nodes_with_edges(graph_empty):
     """Return a list of nodes without edges added."""
-    graph_empty.add_edge('a', 'b')
-    graph_empty.add_edge('c', 'd')
-    graph_empty.add_edge('a', 'd')
-    graph_empty.add_edge('z', 'y')
+    graph_empty.add_edge('a', 'b', 5)
+    graph_empty.add_edge('c', 'd', 2)
+    graph_empty.add_edge('a', 'd', 5)
+    graph_empty.add_edge('z', 'y', 7)
     lst = sorted(graph_empty.nodes())
     assert lst == ['a', 'b', 'c', 'd', 'y', 'z']
 
@@ -233,22 +233,22 @@ def test_edges_one(graph_one):
 
 def test_edges_with_edges(graph_three):
     """Return a list with edges."""
-    graph_three.add_edge('a', 'b')
-    graph_three.add_edge('b', 'c')
-    graph_three.add_edge('d', 'e')
+    graph_three.add_edge('a', 'b', 5)
+    graph_three.add_edge('b', 'c', 2)
+    graph_three.add_edge('d', 'e', 6)
     sort = sorted(graph_three.edges())
-    assert sort == [('a', 'b'), ('b', 'c'), ('d', 'e')]
+    assert sort == [('a', 'b', 5), ('b', 'c', 2), ('d', 'e', 6)]
 
 
 def test_edges_with_edges_many(graph_three):
     """Return a list with edges."""
-    graph_three.add_edge('a', 'b')
-    graph_three.add_edge('b', 'c')
-    graph_three.add_edge('d', 'e')
-    graph_three.add_edge('a', 'c')
-    graph_three.add_edge('c', 'd')
+    graph_three.add_edge('a', 'b', 0)
+    graph_three.add_edge('b', 'c', 0)
+    graph_three.add_edge('d', 'e', 0)
+    graph_three.add_edge('a', 'c', 0)
+    graph_three.add_edge('c', 'd', 0)
     sort = sorted(graph_three.edges())
-    result = [('a', 'b'), ('a', 'c'), ('b', 'c'), ('c', 'd'), ('d', 'e')]
+    result = [('a', 'b', 0), ('a', 'c', 0), ('b', 'c', 0), ('c', 'd', 0), ('d', 'e', 0)]
     assert sort == result
 
 
@@ -258,7 +258,7 @@ def test_dft_simple(traversal_simple):
 
 
 def test_dft_longer(traversal_longer):
-    """Tests depth first on a more complex graph."""
+    """Test depth first on a more complex graph."""
     assert traversal_longer.depth_first_traversal('a') == ['a', 'c', 'f', 'b', 'd', 'e']
 
 
@@ -312,3 +312,15 @@ def test_breadth_multiple_neighbors(traversal_neighbors):
 def test_breadth_no_neighbors(traversal_neighbors):
     """Return a list of just J since J has no neighbors."""
     assert traversal_neighbors.breadth_first_traversal('j') == ['j']
+
+
+def test_weighted_graph_type_error(graph_one):
+    """Test weighted graph throws type error by not adding weight."""
+    with pytest.raises(TypeError):
+        graph_one.add_edge('a', 'b')
+
+
+def test_weighted_graph(graph_one):
+    """Add edge and weight to 2 node graph."""
+    graph_one.add_edge('a', 'b', 5)
+    assert graph_one.edges() == [('a', 'b', 5)]
