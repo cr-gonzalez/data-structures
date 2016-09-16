@@ -324,3 +324,15 @@ def test_weighted_graph(graph_one):
     """Add edge and weight to 2 node graph."""
     graph_one.add_edge('a', 'b', 5)
     assert graph_one.edges() == [('a', 'b', 5)]
+
+def test_shortest_path(graph_empty):
+    """Test shortest path on small graph.""" 
+    graph_empty.add_edge('a', 'b', 3)
+    graph_empty.add_edge('a', 'c', 1)
+    graph_empty.add_edge('b', 'd', 4)
+    graph_empty.add_edge('c', 'e', 2)
+    graph_empty.add_edge('b', 'd', 4)
+    graph_empty.add_edge('e', 'f', 3)
+    graph_empty.add_edge('d', 'f', 5)
+    shortest = graph_empty.shortest_path('a')
+    assert shortest['b'] == 3

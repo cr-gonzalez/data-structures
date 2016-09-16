@@ -1,6 +1,6 @@
 from collections import deque
 from operator import itemgetter
-
+from queue import Queue
 
 class SimpleGraph(object):
     """A Simple Graph."""
@@ -103,6 +103,25 @@ class SimpleGraph(object):
                     to_visit.extend(self._graph[added[0]])
         return result
 
+    def shortest_path(self, node):
+        """Return a list of shortest paths for given node."""
+        unvisited = []
+        dist = {}
+        for item in self._graph:
+            dist[item] = 100000000000000
+            unvisited.append(node)
+        dist[node] = 0
+        while unvisited:
+            current_node = unvisited[0]
+            unvisited.remove(current_node)
+            for neighbor in self._graph[current_node[0]]:
+                if neighbor not in unvisited:
+                    unvisited.append(neighbor)
+                current_dist = dist[current_node[0]] + neighbor[1]      
+                if current_dist < dist[neighbor[0]]:
+                    dist[neighbor[0]] = current_dist
+        return dist
+        
 
 if __name__ == '__main__':
     from conftest import traversal_neighbors, traversal_longer, traversal_simple
