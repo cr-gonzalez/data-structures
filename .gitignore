@@ -17,6 +17,7 @@ eggs/
 .eggs/
 lib/
 lib64/
+lib64
 parts/
 sdist/
 var/
@@ -87,3 +88,13 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Personal Ignores
+bin/
+pyvenv.cfg
+Include/
+Lib/
+Scripts/
+tcl/
+pip-selfcheck.json
+.vscode/
